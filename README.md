@@ -6,10 +6,10 @@
 Este projeto tem como objetivo de desenvolver um sistema modular e reutilizável em Python em que realiza consultas automáticas à [**API do Portal da Transparência**](https://portaldatransparencia.gov.br/api-de-dados) do Governo Federal a partir de uma lista de CPFs e armazene os resultados em um arquivo CSV utilizando os princípios da **Programação Orientada à Objetos (POO)**.
 
 ### 2. Funcionalidades
- - Lê CPFs de um arquivo CSV.
+ - Leitura CPFs de um arquivo CSV.
  - Consulta a API oficial (com chave própria).
- - Valida e padroniza os dados com Pydantic. 
- - Salva tudo em CSV estruturado (fácil de abrir no Excel/LibreOffice). 
+ - Validação e padronização dos dados. 
+ - Tudo salvo em um CSV estruturado (fácil de abrir no Excel/LibreOffice). 
  - Logging completo de erros e sucessos.
 
 ### 3. Pré-requisitos
@@ -31,6 +31,7 @@ O sistema foi desenvolvido com Python 3.13, estruturado segundo os princípios d
 #### Bibliotecas:
 - `requests` --- para a comunicação com a API REST;
 - `pandas` --- para leitura e escrita de arquivos;
+- `pydantic` --- para validação de dados;
 - `logging` --- para registro de atividades e erros;
 - `dotenv` --- para configuração de chaves de API via variáveis de ambiente (Se não, o programa solicita a chave API).
 
@@ -54,7 +55,7 @@ Além disso, usei o linter e formatador chamado `ruff` que é extremamente rápi
 	```
 	OBS.: o programa vai procurar o arquivo `cpfs.csv` por padrão.
 
-2. Crie (opcional) um arquivo `.env` na pasta raiz:
+2. (Opcional) Crie um arquivo `.env` na pasta raiz:
 	```
 	CHAVE_API_DADOS={sua_chave_api}
 	```
