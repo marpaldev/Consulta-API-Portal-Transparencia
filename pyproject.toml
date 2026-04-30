@@ -1,13 +1,12 @@
 [project]
 name = "consulta-api-portal-da-trasparencia"
-version = "0.1.0"
+version = "0.2.0"
 description = "Programa de consulta à API do Portal da Transparência"
 license = "Apache 2.0"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "requests",
-    "logging",
     "dotenv",
     "radon",
     "pydantic",

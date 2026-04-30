@@ -1,5 +1,4 @@
 import logging
-import time
 from ControladorAplicacao import ControladorAplicacao
 
 
@@ -15,9 +14,8 @@ def log_init():
 
 if __name__ == "__main__":
     log_init()
-    api_key = ControladorAplicacao.chaveApi()
-    app = ControladorAplicacao(api_key, f"cpfs.csv", f"dados.csv")
-    start_time = time.perf_counter()
+    api_key = ControladorAplicacao.obterChaveApi()
+    app = ControladorAplicacao(api_key, "cpfs.csv", "dados.csv")
     app.executar()
     logger = logging.getLogger(__name__)
     logger.info("Programa finalizado com sucesso!")

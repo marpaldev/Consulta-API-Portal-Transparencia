@@ -19,8 +19,7 @@ wheels/
 #Ruff cache
 .ruff_cache/
 
-cpfs.csv
+*.csv
 example.json
-dados.csv
 .env
-logfile.log
+*.log

@@ -1,6 +1,6 @@
 import pandas as pd
-from typing import Optional
 import logging
+from typing import Optional
 
 
 class LeitorCSV:
@@ -11,6 +11,8 @@ class LeitorCSV:
     def ler(self):
         self.logger.debug("Lendo arquivo CSV...")
         df = pd.read_csv(self.csv_file)
+        if 'cpfs' not in df.columns:
+            raise ValueError(f"Coluna 'cpfs' não encontrada em {self.csv_file}.")
         lista_cpfs = df['cpfs'].astype(str).tolist()
         lista_cpfs = sorted(set(lista_cpfs))
         return lista_cpfs

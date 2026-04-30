@@ -18,19 +18,17 @@ class ControladorAplicacao:
         self.csv_saida = csv_saida
 
     def executar(self) -> None:
-        leitor = LeitorCSV(self.csv_entrada)
-        self.cpfs = leitor.ler()
-        for cpf in self.cpfs:
-            consulta = ConsultaAPI(self.chave_api, cpf)
-            dados = consulta.consultar()
-            pessoa = ValidarDados(**dados)
-            dados_validos= pessoa.dict()
-            gravador = GravadorCSV(dados_validos)
-            gravador.gravar(self.csv_saida)
+        cpfs = LeitorCSV(self.csv_entrada).ler()
+        gravador = GravadorCSV(self.csv_saida)
+        for cpf in cpfs:
+            dados = ConsultaAPI(self.chave_api, cpf).consultar()
+            dados_validos = ValidarDados(**dados).dict()
+            gravador.gravar(dados_validos)
 
     @staticmethod
-    def chaveApi():
-        logger = logging.getLogger(__name__)
+    def obterChaveApi(logger: Optional[logging.Logger] = None):
+        logger = logger or logging.getLogger(__name__)
+
         if os.path.exists(".env"):
             try:
                 load_dotenv()
@@ -50,4 +48,3 @@ class ControladorAplicacao:
             if chave_input:
                 return chave_input
             print("[Aviso] A chave não pode ser vazia. Tente novamente.")
-            break

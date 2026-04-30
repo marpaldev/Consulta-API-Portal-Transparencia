@@ -7,7 +7,7 @@ class ConsultaAPI:
         self.logger = logger or logging.getLogger(__name__)
         self.__url = "https://api.portaldatransparencia.gov.br/api-de-dados/pessoa-fisica"
         self.__chave_api = chave_api
-        self.cpf = str(cpf)
+        self.__cpf = str(cpf).zfill(11)
 
     def consultar(self):
         if not self.__chave_api:
@@ -18,11 +18,14 @@ class ConsultaAPI:
             "chave-api-dados": self.__chave_api
         }
 
-        consulta = f"{self.__url}?cpf={self.cpf}"
+        consulta = f"{self.__url}?cpf={self.__cpf}"
         resposta = requests.get(consulta, headers=header, timeout=5)
         if resposta.status_code == 200:
+            dados = resposta.json()
+            if not dados:
+                raise ValueError("API retornou resposta vazia")
             self.logger.info("Consulta realizada com sucesso!")
-            return resposta.json()
+            return dados
         else:
             self.logger.error(f"Falha de conexão: {resposta.status_code}")
             raise ConnectionError(f"Falha de conexão: {resposta.status_code}")
